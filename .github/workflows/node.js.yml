@@ -45,8 +45,8 @@ jobs:
 #         mysql user: 'mysqluser'
 #         mysql password: 'password'
       run: |
-        sudo sudo systemctl start mysql
-        mysql -uroot -ppassword userdb < ./db/createTable.sql
+        sudo systemctl start mysql
+        mysql -uroot -ppassword -h 127.0.0.1 userdb < ./db/createTable.sql
     - name: Use Node.js
       uses: actions/setup-node@v1
     - name: Install dependencies
