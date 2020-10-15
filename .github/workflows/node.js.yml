@@ -9,9 +9,9 @@ on:
   pull_request:
     branches: [ main ]
 
-# defaults:
-#   run:
-#     working-directory: src
+defaults:
+  run:
+    working-directory: src
 
 jobs:
   build:
@@ -29,6 +29,8 @@ jobs:
           DATABASE_HOST: mysql
         ports:
           - 3306
+        volumes:
+          -  /home/runner/work/zendesk-chatops/zendesk-chatops/src/db/:/docker-entrypoint-initdb.d/
 
     steps:
     - uses: actions/checkout@v2
