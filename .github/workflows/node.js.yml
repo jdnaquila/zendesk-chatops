@@ -18,7 +18,21 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_DATABASE: userdb
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_USER: mysqluser
+          MYSQL_PASSWORD: password
+          DATABASE_HOST: mysql
+        ports:
+          - 3306
+
     steps:
+    - name: Setup database
+      run: mysql -u mysqluser -p password userdb < ./src/db/createTable.sql
     - uses: actions/checkout@v2
     - name: Use Node.js
       uses: actions/setup-node@v1
