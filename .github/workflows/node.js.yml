@@ -29,13 +29,11 @@ jobs:
           DATABASE_HOST: mysql
         ports:
           - 3306
-        volumes:
-          - ./db/:/docker-entrypoint-initdb.d/
 
     steps:
     - uses: actions/checkout@v2
-#     - name: Set up database
-#       run: mysql -u mysqluser -p password userdb < ./db/createTable.sql
+    - name: Set up database
+      run: mysql -umysqluser -ppassword userdb < ./db/createTable.sql
     - name: Use Node.js
       uses: actions/setup-node@v1
     - name: Install dependencies
