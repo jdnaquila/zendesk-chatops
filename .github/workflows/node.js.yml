@@ -9,9 +9,9 @@ on:
   pull_request:
     branches: [ main ]
 
-# defaults:
-#   run:
-#     working-directory: src
+defaults:
+  run:
+    working-directory: src
 
 jobs:
   build:
@@ -31,8 +31,9 @@ jobs:
           - 3306
 
     steps:
-#     - run: mysql -u mysqluser -p password userdb -e 'CREATE TABLE users (username VARCHAR(255), name VARCHAR(255), lastname VARCHAR(255), UNIQUE (username));'
     - uses: actions/checkout@v2
+    - name: Set up database
+      run: mysql -u mysqluser -p password userdb < ./db/createTable.sql
     - name: Use Node.js
       uses: actions/setup-node@v1
     - name: Install dependencies
