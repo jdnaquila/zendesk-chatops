@@ -30,7 +30,7 @@ jobs:
         ports:
           - 3306
         volumes:
-          - ./db/createTable.sql:docker-entrypoint-initdb.d/createTable.sql
+          - ./db/:docker-entrypoint-initdb.d/
 
     steps:
     - uses: actions/checkout@v2
