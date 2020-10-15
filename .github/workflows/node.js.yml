@@ -18,33 +18,33 @@ jobs:
 
     runs-on: ubuntu-latest
     
-#     services:
-#       mysql:
-#         image: mysql:5.7
-#         env:
-#           MYSQL_DATABASE: userdb
-#           MYSQL_ROOT_PASSWORD: password
-#           MYSQL_USER: mysqluser
-#           MYSQL_PASSWORD: password
-#           DATABASE_HOST: mysql
-#         ports:
-#           - 3306
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_DATABASE: userdb
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_USER: mysqluser
+          MYSQL_PASSWORD: password
+          DATABASE_HOST: mysql
+        ports:
+          - 3306
 
     steps:
     - uses: actions/checkout@v2
-    - name: Shutdown Ubuntu MySQL (SUDO)
-      run: sudo service mysql stop
+#     - name: Shutdown Ubuntu MySQL (SUDO)
+#       run: sudo service mysql stop
     - name: Set up MySQL
-      uses: mirromutth/mysql-action@v1.1
-      with:
-        host port: 3306
-        container port: 3306
-        mysql version: '5.7'
-        mysql database: 'userdb'
-        mysql root password: 'password'
-        mysql user: 'mysqluser'
-        mysql password: 'password'
-    - run: |
+#       uses: mirromutth/mysql-action@v1.1
+#       with:
+#         host port: 3306
+#         container port: 3306
+#         mysql version: '5.7'
+#         mysql database: 'userdb'
+#         mysql root password: 'password'
+#         mysql user: 'mysqluser'
+#         mysql password: 'password'
+      run: |
         sudo sudo systemctl start mysql
         mysql -uroot -ppassword userdb < ./db/createTable.sql
     - name: Use Node.js
