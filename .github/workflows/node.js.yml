@@ -18,35 +18,35 @@ jobs:
 
     runs-on: ubuntu-latest
     
-    services:
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_DATABASE: userdb
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_USER: mysqluser
-          MYSQL_PASSWORD: password
-          DATABASE_HOST: mysql
-        ports:
-          - 3306
-        volumes:
-          -  /home/runner/work/zendesk-chatops/zendesk-chatops/src/db/:/docker-entrypoint-initdb.d/
+#     services:
+#       mysql:
+#         image: mysql:5.7
+#         env:
+#           MYSQL_DATABASE: userdb
+#           MYSQL_ROOT_PASSWORD: password
+#           MYSQL_USER: mysqluser
+#           MYSQL_PASSWORD: password
+#           DATABASE_HOST: mysql
+#         ports:
+#           - 3306
+#         volumes:
+#           -  /home/runner/work/zendesk-chatops/zendesk-chatops/src/db/:/docker-entrypoint-initdb.d/
 
     steps:
     - uses: actions/checkout@v2
-#     - name: Shutdown Ubuntu MySQL (SUDO)
-#       run: sudo service mysql stop
-#     - name: Set up MySQL
-#       uses: mirromutth/mysql-action@v1.1
-#       with:
-#         host port: 3306
-#         container port: 3306
-#         mysql version: '5.7'
-#         mysql database: 'userdb'
-#         mysql root password: 'password'
-#         mysql user: 'mysqluser'
-#         mysql password: 'password'
-#     - run: mysql -umysqluser -ppassword userdb < ./db/createTable.sql
+    - name: Shutdown Ubuntu MySQL (SUDO)
+      run: sudo service mysql stop
+    - name: Set up MySQL
+      uses: mirromutth/mysql-action@v1.1
+      with:
+        host port: 3306
+        container port: 3306
+        mysql version: '5.7'
+        mysql database: 'userdb'
+        mysql root password: 'password'
+        mysql user: 'mysqluser'
+        mysql password: 'password'
+    - run: mysql -uroot -ppassword userdb -e 'CREATE TABLE users (username VARCHAR(255), name VARCHAR(255), lastname VARCHAR(255), UNIQUE (username));'
     - name: Use Node.js
       uses: actions/setup-node@v1
     - name: Install dependencies
