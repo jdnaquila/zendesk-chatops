@@ -11,7 +11,7 @@ on:
 
 defaults:
   run:
-    working-directory: src/db
+    working-directory: src
 
 jobs:
   build:
@@ -32,7 +32,7 @@ jobs:
 
     steps:
     - name: Setup database
-      run: mysql -u mysqluser -p password userdb < createTable.sql
+      run: mysql -u mysqluser -p password userdb -e 'CREATE TABLE users (username VARCHAR(255), name VARCHAR(255), lastname VARCHAR(255), UNIQUE (username));'
     - uses: actions/checkout@v2
     - name: Use Node.js
       uses: actions/setup-node@v1
