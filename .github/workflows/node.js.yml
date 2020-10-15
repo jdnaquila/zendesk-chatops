@@ -29,8 +29,6 @@ jobs:
 #           DATABASE_HOST: mysql
 #         ports:
 #           - 3306
-#         volumes:
-#           -  /home/runner/work/zendesk-chatops/zendesk-chatops/src/db/:/docker-entrypoint-initdb.d/
 
     steps:
     - uses: actions/checkout@v2
@@ -46,7 +44,9 @@ jobs:
         mysql root password: 'password'
         mysql user: 'mysqluser'
         mysql password: 'password'
-    - run: mysql -uroot -ppassword userdb -e 'CREATE TABLE users (username VARCHAR(255), name VARCHAR(255), lastname VARCHAR(255), UNIQUE (username));'
+    - run: |
+        sudo sudo systemctl start mysql
+        mysql -uroot -ppassword userdb < ./db/createTable.sql
     - name: Use Node.js
       uses: actions/setup-node@v1
     - name: Install dependencies
