@@ -30,7 +30,7 @@ jobs:
         ports:
           - 3306
         volumes:
-          - ./db/:docker-entrypoint-initdb.d/
+          - ./db/:/docker-entrypoint-initdb.d/
 
     steps:
     - uses: actions/checkout@v2
