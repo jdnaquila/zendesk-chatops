@@ -14,10 +14,6 @@ jobs:
 
     runs-on: ubuntu-latest
     
-    defaults:
-      run:
-        working-directory: src
-
     services:
       mysql:
         image: mysql:5.7
@@ -32,7 +28,7 @@ jobs:
 
     steps:
     - name: Setup database
-      run: mysql -u mysqluser -p password userdb < ./db/createTable.sql
+      run: mysql -u mysqluser -p password userdb < ./src/db/createTable.sql
     - uses: actions/checkout@v2
     - name: Use Node.js
       uses: actions/setup-node@v1
