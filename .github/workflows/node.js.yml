@@ -31,6 +31,7 @@ jobs:
           - 3306
 
     steps:
+    - run: pwd
     - name: Setup database
       run: mysql -u mysqluser -p password userdb -e 'CREATE TABLE users (username VARCHAR(255), name VARCHAR(255), lastname VARCHAR(255), UNIQUE (username));'
     - uses: actions/checkout@v2
