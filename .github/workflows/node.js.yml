@@ -47,7 +47,7 @@ jobs:
       run: |
         sudo systemctl start mysql
         sleep 5
-        mysql -uroot -ppassword -h 127.0.0.1 userdb < ./db/createTable.sql
+        mysql -h 127.0.0.1 -uroot -ppassword userdb < ./db/createTable.sql --protocol=tcp
     - name: Use Node.js
       uses: actions/setup-node@v1
     - name: Install dependencies
